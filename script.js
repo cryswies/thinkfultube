@@ -11,28 +11,26 @@ $(document).ready(function() {
     $.getJSON(YOUTUBE_BASE_URL, query, callback);
   }
 
-  function displayYouTubeResults(data) {
-    var youtubeResultElement='';
+  function showYouTubeResults(data) {
+    var youtubeResult='';
     
     if (data.items) {
       data.items.forEach(function(item) {
-        youtubeResultElement += "<p><iframe height='300' width='370'" +
-          "src='https://www.youtube.com/embed/" + item.id.videoId + "?controls=1'>" +
-          "</iframe></p>"
+        youtubeResult += "<p><iframe height='300' width='370'" +
+          "src='https://www.youtube.com/embed/" + item.id.videoId + "?controls=1'>" + "</iframe></p>"
       });
     }
-
     else {
-      youtubeResultElement += '<p>No results</p>';
+      youtubeResult += '<p>No results!</p>';
     }
 
-    $('#js-youtube-results').html(youtubeResultElement);
+    $('#js-results').html(youtubeResult);
   }
 
   $('#js-search').submit(function() {
     event.preventDefault();
-    var searchTerm = $('#js-search-entry').val();         
-    getYouTubeApi(searchTerm, displayYouTubeResults); 
+    var searchTerm = $('#js-search-input').val();         
+    getYouTubeApi(searchTerm, showYouTubeResults); 
   });
 
-})
+});
